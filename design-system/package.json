@@ -1,5 +1,5 @@
 {
-  "name": "@base/design-system",
+  "name": "@gnl-org/base-design-system",
   "version": "0.1.0",
   "description": "A reusable React design system with theme, colors, spacers, sizes, corner radius, fonts, and components.",
   "main": "dist/index.js",
