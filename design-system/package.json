@@ -1,6 +1,6 @@
 {
   "name": "@gnl-org/base-design-system",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "A reusable React design system with theme, colors, spacers, sizes, corner radius, fonts, and components.",
   "main": "dist/index.js",
   "module": "dist/index.js",
