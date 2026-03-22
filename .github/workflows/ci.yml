@@ -1,0 +1,31 @@
+# GitHub Actions runs every workflow file in this folder. The filename is only for humans;
+# "ci.yml" is a common name meaning "continuous integration" (automated checks on each change).
+name: Test and build
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # Design system: npm test (placeholder) + TypeScript build
+      - name: Design system — install, test, build
+        working-directory: design-system
+        run: npm ci && npm test && npm run build
+
+      # Example app: ensures the demo still compiles against the package
+      - name: Example app — install and build
+        working-directory: example
+        run: npm ci && npm run build

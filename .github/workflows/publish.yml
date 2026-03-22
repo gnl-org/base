@@ -21,10 +21,12 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      # Trusted publishing (OIDC) requires Node >= 22.14 and npm >= 11.5.1
+      # https://docs.npmjs.com/trusted-publishers
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           registry-url: https://registry.npmjs.org
 
       - name: Install dependencies
