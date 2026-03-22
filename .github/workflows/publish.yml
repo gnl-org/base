@@ -22,14 +22,17 @@ jobs:
         uses: actions/checkout@v4
 
       # Trusted publishing (OIDC): Node >= 22.14, npm >= 11.5.1; id-token: write above.
-      # npm docs require registry-url here. Publish must NOT use NODE_AUTH_TOKEN (OIDC only);
-      # a repo/org secret often overrides OIDC and can cause E404.
+      # Bundled npm on the runner is often too old and reports misleading ENEEDAUTH / E404;
+      # upgrade explicitly (see https://github.com/npm/cli/issues/9088).
       # https://docs.npmjs.com/trusted-publishers
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           registry-url: https://registry.npmjs.org
+
+      - name: Upgrade npm for trusted publishing
+        run: npm install -g npm@11.6.2 && npm --version
 
       - name: Install dependencies
         run: npm ci
@@ -38,7 +41,7 @@ jobs:
         run: npm run build
 
       - name: Publish to npm
-        run: npm publish --access public
-        env:
-          NODE_AUTH_TOKEN: ""
+        run: |
+          unset NODE_AUTH_TOKEN
+          npm publish --access public
 
