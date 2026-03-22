@@ -23,11 +23,12 @@ jobs:
 
       # Trusted publishing (OIDC) requires Node >= 22.14 and npm >= 11.5.1
       # https://docs.npmjs.com/trusted-publishers
+      # Do not set registry-url + NODE_AUTH_TOKEN here: that forces token auth and
+      # overrides OIDC. A bad/legacy token often surfaces as E404 on publish.
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          registry-url: https://registry.npmjs.org
 
       - name: Install dependencies
         run: npm ci
@@ -36,7 +37,5 @@ jobs:
         run: npm run build
 
       - name: Publish to npm
-        run: npm publish --access public
-#        env:
-#          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: unset NODE_AUTH_TOKEN && npm publish --access public
 
