@@ -1,4 +1,6 @@
-name: CI
+# GitHub Actions runs every workflow file in this folder. The filename is only for humans;
+# "ci.yml" is a common name meaning "continuous integration" (automated checks on each change).
+name: Test and build
 
 on:
   pull_request:
@@ -18,10 +20,12 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install and build design system
+      # Design system: npm test (placeholder) + TypeScript build
+      - name: Design system — install, test, build
         working-directory: design-system
-        run: npm ci && npm run build
+        run: npm ci && npm test && npm run build
 
-      - name: Install and build example app
+      # Example app: ensures the demo still compiles against the package
+      - name: Example app — install and build
         working-directory: example
         run: npm ci && npm run build
