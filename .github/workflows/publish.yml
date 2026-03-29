@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       # Trusted publishing (OIDC): Node >= 22.14, npm >= 11.5.1; id-token: write above.
       # Bundled npm on the runner is often too old and reports misleading ENEEDAUTH / E404;
